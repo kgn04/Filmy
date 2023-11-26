@@ -1,6 +1,8 @@
 package com.example.filmy
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -29,6 +31,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -43,91 +46,89 @@ class DetailsActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FilmyTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val actor = Reference("Grzesiu", "http//sadsadsd.peel",  R.drawable.ic_launcher_background)
-                    val scene = Reference("scena taka", "http//sadsadsd.peel", R.drawable.ic_launcher_background)
-                    val movie = Movie("Android", "juzek", R.drawable.ic_launcher_background, "Lorem ipsum lalala askjndkasfnlajsf",
-                        listOf(scene, scene, scene, scene, scene), listOf(actor, actor, actor, actor, actor, actor, actor, actor)
-                    )
-                    DetailsGrid(movie)
+                    DetailsGrid(intent.getSerializableExtra("movie") as Movie)
                 }
             }
         }
     }
-}
 
-@Composable
-fun Description(movie: Movie) {
-    Row(modifier = Modifier
-        .padding(all = 8.dp))  {
-        Image(painter = painterResource(movie.image),
-            contentDescription = "Photo from ${movie.title}",
-            modifier = Modifier
-                // Set image size to 40 dp
-                .size(100.dp)
-                // Clip image to be shaped as a circle
-                .clip(CircleShape)
-        )
-        Spacer(modifier = Modifier.width(20.dp))
-        Text(text = movie.description)
-    }
-}
-
-
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun ContentContainer(name: String, content: List<Reference>, width_fraction: Float) {
-    Column(modifier = Modifier
-        .fillMaxWidth(width_fraction)) {
-        Text(text = name)
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        LazyVerticalStaggeredGrid(columns = StaggeredGridCells.Fixed(3)) {
-            items(content) { reference ->
-                Image(painter = painterResource(reference.image),
-                    contentDescription = "Photo  from",
-                    modifier = Modifier
-                        // Set image size to 40 dp
-                            .size(80.dp)
-                            .padding(8.dp)
-                    )
-                }
-        }
-    }
-}
-
-@Composable
-fun DetailsGrid(movie: Movie, modifier: Modifier = Modifier) {
-    // Main Grid
-    Column(modifier = Modifier
-        .padding(all = 8.dp)) {
-        // Image & description grid
-        Description(movie = movie)
-        //scenes & actors
+    @SuppressLint("DiscouragedApi")
+    @Composable
+    private fun Description(movie: Movie) {
+        Spacer(modifier = Modifier.height(100.dp))
         Row(modifier = Modifier
             .padding(all = 8.dp))  {
-            // Scenes grid
-            ContentContainer(name = "SCENY", content = movie.scenes, width_fraction = 0.5f)
-            // Actors grid
-            ContentContainer(name = "AKTORZY", content = movie.actors, width_fraction = 1.0f)
+            Image(painter = painterResource(resources.getIdentifier(movie.image_name, "drawable", packageName)),
+                contentDescription = "Photo from ${movie.title}",
+                modifier = Modifier
+                    .size(150.dp)
+
+            )
+            Spacer(modifier = Modifier.width(20.dp))
+            Text(text = movie.description,
+                textAlign = TextAlign.Justify,
+                fontSize = 18.sp)
+        }
+        Spacer(modifier = Modifier.height(100.dp))
+    }
+
+
+    @SuppressLint("DiscouragedApi")
+    @OptIn(ExperimentalFoundationApi::class)
+    @Composable
+    private fun ContentContainer(name: String, content: List<Reference>, width_fraction: Float) {
+        Column(modifier = Modifier
+            .fillMaxWidth(width_fraction)) {
+            Text(text = name,
+                fontWeight = FontWeight.Bold,
+                fontSize = 22.sp,
+                textAlign = TextAlign.Center
+           )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            val mContext = LocalContext.current
+            LazyVerticalStaggeredGrid(columns = StaggeredGridCells.Fixed(3)) {
+                items(content) { reference ->
+                    Image(painter = painterResource(resources.getIdentifier(reference.image_name, "drawable", packageName)),
+                        contentDescription = "Photo  from",
+                        modifier = Modifier
+                            // Set image size to 40 dp
+                            .size(80.dp)
+                            .padding(2.dp)
+                            .clickable {
+                                mContext.startActivity(
+                                    Intent(
+                                        Intent.ACTION_VIEW,
+                                        Uri.parse(reference.url)
+                                    )
+                                )
+                            }
+                    )
+                }
+            }
         }
     }
-}
 
-@Preview(showBackground = true)
-@Composable
-fun DetailsGridPreview() {
-    FilmyTheme {
-        val actor = Reference("Grzesiu", "http//sadsadsd.peel", R.drawable.ic_launcher_background)
-        val scene = Reference("scena taka", "http//sadsadsd.peel", R.drawable.ic_launcher_background)
-        val movie = Movie("Android", "juzek", R.drawable.ic_launcher_background, "Lorem ipsum lalala askjndkasfnlajsf",
-            listOf(scene, scene, scene, scene, scene), listOf(actor, actor, actor, actor, actor, actor, actor, actor)
-        )
-        DetailsGrid(movie)
+    @Composable
+    private fun DetailsGrid(movie: Movie, modifier: Modifier = Modifier) {
+        // Main Grid
+        Column(modifier = Modifier
+            .padding(all = 8.dp)) {
+            // Image & description grid
+            Description(movie = movie)
+            //scenes & actors
+            Row(modifier = Modifier
+                .padding(all = 8.dp))  {
+                // Scenes grid
+                ContentContainer(name = "SCENY", content = movie.scenes, width_fraction = 0.5f)
+                // Actors grid
+                ContentContainer(name = "AKTORZY", content = movie.actors, width_fraction = 1.0f)
+            }
+        }
     }
 }

@@ -1,0 +1,92 @@
+[
+  {
+    "title": "Inception",
+    "author": "Christopher Nolan",
+    "image": 1,
+    "description": "A mind-bending heist movie that explores the concept of dreams within dreams.",
+    "scenes": [
+      {
+        "description": "Dream Limbo",
+        "url": "https://example.com/dream_limbo",
+        "image": 101
+      },
+      {
+        "description": "Hotel Hallway Fight",
+        "url": "https://example.com/hotel_fight",
+        "image": 102
+      }
+    ],
+    "actors": [
+      {
+        "description": "Leonardo DiCaprio",
+        "url": "https://example.com/leonardo_dicaprio",
+        "image": 201
+      },
+      {
+        "description": "Ellen Page",
+        "url": "https://example.com/ellen_page",
+        "image": 202
+      }
+    ]
+  },
+  {
+    "title": "The Shawshank Redemption",
+    "author": "Frank Darabont",
+    "image": 2,
+    "description": "A tale of hope and perseverance as a man seeks freedom from Shawshank State Penitentiary.",
+    "scenes": [
+      {
+        "description": "Andy Dufresne's Escape",
+        "url": "https://example.com/andy_escape",
+        "image": 103
+      },
+      {
+        "description": "Library Scene",
+        "url": "https://example.com/library_scene",
+        "image": 104
+      }
+    ],
+    "actors": [
+      {
+        "description": "Tim Robbins",
+        "url": "https://example.com/tim_robbins",
+        "image": 203
+      },
+      {
+        "description": "Morgan Freeman",
+        "url": "https://example.com/morgan_freeman",
+        "image": 204
+      }
+    ]
+  },
+  {
+    "title": "The Matrix",
+    "author": "Lana and Lilly Wachowski",
+    "image": 3,
+    "description": "A cyberpunk action film that explores the concept of simulated reality.",
+    "scenes": [
+      {
+        "description": "Bullet Dodging",
+        "url": "https://example.com/bullet_dodging",
+        "image": 105
+      },
+      {
+        "description": "Lobby Shootout",
+        "url": "https://example.com/lobby_shootout",
+        "image": 106
+      }
+    ],
+    "actors": [
+      {
+        "description": "Keanu Reeves",
+        "url": "https://example.com/keanu_reeves",
+        "image": 205
+      },
+      {
+        "description": "Carrie-Anne Moss",
+        "url": "https://example.com/carrie_anne_moss",
+        "image": 206
+      }
+    ]
+  }
+]
