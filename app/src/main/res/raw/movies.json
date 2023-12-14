@@ -1,9 +1,11 @@
 [
   {
+    "id": 1,
     "title": "Dzień Świra",
     "author": "Marek Koterski",
     "image_name": "dzien_swira",
     "description": "Adaś Miauczyński, 49-letni rozwiedziony polonista, żvje w kręgu swoich natręctw, nie potrafiąc wyrwać się z nudy i rutyny dnia codziennego.",
+    "trailer_uri": "ds_trailer",
     "scenes": [
       {
         "description": "Modlitwa polaka",
@@ -65,10 +67,12 @@
     ]
   },
   {
+    "id": 2,
     "title": "Shrek 2",
     "author": "Andrew Adamson, Kelly Asbury",
     "image_name": "shrek",
     "description": "Shrek i Fiona postanawiają odwiedzić rodziców księżniczki, którzy nie wiedzą jednak, że poślubiła ona ogra, a sama zmieniła się w ogrzycę.",
+    "trailer_uri": "shrek_trailer",
     "scenes": [
       {
         "description": "I need a hero",
@@ -155,10 +159,12 @@
     ]
   },
   {
+    "id": 3,
     "title": "Fight Club",
     "author": "David Fincher",
     "image_name": "fc",
     "description": "Cierpiący na bezsenność mężczyzna poznaje gardzącego konsumpcyjnym stylem życia Tylera Durdena, który jest jego zupełnym przeciwieństwem.",
+    "trailer_uri": "fc_trailer",
     "scenes": [
       {
         "description": "I want you to hit me",

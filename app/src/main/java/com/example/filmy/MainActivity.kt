@@ -115,10 +115,12 @@ data class Reference(
 ) : Serializable
 
 data class Movie(
+    val id: Int,
     val title: String,
     val author: String,
     val image_name: String,
     val description: String,
+    val trailer_uri: String,
     val scenes: List<Reference>,
     val actors: List<Reference>
 ) : Serializable
