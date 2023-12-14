@@ -190,24 +190,7 @@ class DetailsActivity : ComponentActivity() {
         }
 
         ConstraintLayout(modifier = modifier) {
-            val (title, videoPlayer) = createRefs()
-
-            // video title
-            Text(
-                text = "Current Title",
-                color = Color.White,
-                modifier =
-                Modifier.padding(16.dp)
-                    .fillMaxWidth()
-                    .wrapContentHeight()
-                    .constrainAs(title) {
-                        top.linkTo(parent.top)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                    }
-            )
-
-            // player view
+            val (_, videoPlayer) = createRefs()
             DisposableEffect(
                 AndroidView(
                     modifier =
