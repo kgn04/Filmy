@@ -58,7 +58,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun loadMoviesFromJson(): List<Movie> {
-        val jsonFile = resources.openRawResource(R.raw.movies) // Assuming you've placed your JSON file in the 'res/raw' folder
+        val jsonFile = resources.openRawResource(R.raw.movies)
         val jsonReader = BufferedReader(InputStreamReader(jsonFile))
         return Gson().fromJson(jsonReader, Array<Movie>::class.java).toList()
     }
@@ -79,7 +79,6 @@ class MainActivity : ComponentActivity() {
                 contentDescription = "Photo from ${movie.title}",
                 modifier = Modifier
                     .size(100.dp)
-                    //.clip(CircleShape)
             )
 
             Spacer(modifier = Modifier.width(8.dp))
@@ -90,7 +89,6 @@ class MainActivity : ComponentActivity() {
                     fontWeight = FontWeight.Bold,
                     fontStyle = FontStyle.Italic
                 )
-                // Add a vertical space between the author and message texts
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(text = movie.author,
                     fontSize = 20.sp)
@@ -115,12 +113,12 @@ data class Reference(
 ) : Serializable
 
 data class Movie(
-    val id: Int,
+    val id: String,
     val title: String,
     val author: String,
     val image_name: String,
     val description: String,
-    val trailer_uri: String,
+    val trailer_uris: List<String>,
     val scenes: List<Reference>,
     val actors: List<Reference>
 ) : Serializable

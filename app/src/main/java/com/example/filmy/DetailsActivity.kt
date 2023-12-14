@@ -65,7 +65,6 @@ class DetailsActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     DetailsGrid(intent.getSerializableExtra("movie") as Movie)
-                    //VideoPlayer(intent.getSerializableExtra("movie") as Movie)
                 }
             }
         }
@@ -135,13 +134,19 @@ class DetailsActivity : ComponentActivity() {
         // Main Grid
         Column(modifier = Modifier
             .padding(all = 8.dp)) {
+            // Image & description grid
+            Description(movie = movie)
+            // Trailers
+            Text(text = "ZWIASTUNY",
+                fontWeight = FontWeight.Bold,
+                fontSize = 22.sp,
+                textAlign = TextAlign.Center
+            )
             VideoPlayer(
                 movie = movie,
                 modifier = Modifier.height(250.dp)
             )
-            // Image & description grid
-            Description(movie = movie)
-            //scenes & actors
+            // scenes & actors
             Row(modifier = Modifier
                 .padding(all = 8.dp))  {
                 // Scenes grid
@@ -159,13 +164,13 @@ class DetailsActivity : ComponentActivity() {
         movie: Movie) {
         val context = LocalContext.current
         val mediaItems = arrayListOf<MediaItem>()
-        val videoUri = Uri.parse("android.resource://${packageName}/raw/${movie.trailer_uri}")
 
-        // create MediaItem
+        for (i in 1..2) {
+            val videoUri = Uri.parse("android.resource://${packageName}/raw/${movie.id}_trailer_$i")
             mediaItems.add(
                 MediaItem.Builder()
                     .setUri(videoUri)
-                    .setMediaId(movie.id.toString())
+                    .setMediaId(i.toString())
                     .setTag(movie)
                     .setMediaMetadata(
                         MediaMetadata.Builder()
@@ -174,6 +179,7 @@ class DetailsActivity : ComponentActivity() {
                     )
                     .build()
             )
+        }
 
         val exoPlayer = remember {
             SimpleExoPlayer.Builder(context).build().apply {
@@ -213,8 +219,6 @@ class DetailsActivity : ComponentActivity() {
                             bottom.linkTo(parent.bottom)
                         },
                     factory = {
-
-                        // exo player view for our video player
                         PlayerView(context).apply {
                             player = exoPlayer
                             layoutParams =
@@ -229,7 +233,6 @@ class DetailsActivity : ComponentActivity() {
                 )
             ) {
                 onDispose {
-                    // relase player when no longer needed
                     exoPlayer.release()
                 }
             }
